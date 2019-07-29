@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+    <h4><strong>Name:</strong></h4>
+    <p><%= @category.name %></p>
+</p>
+<div class="card">
+    <div class="card-body">
+        <%= form_with(model: [ @category, @product ]) do |form| %>
+        <h4><%= form.label :title, "Name: " %></h4>
+        <%= form.text_area :name %>
+        <h4><%= form.label :title, "Price: " %></h4>
+        <%= form.text_area :price %>
+        <%= form.submit "Save", class:'btn btn-primary' %>
+        <% end %>
+    </div>
+</div>
+<div class="mt-5, mb-5">
+    <h3>Listado de productos de la categoría: <%=@category.name %></h3>
+
+  <table class="table table-hover">
+<tr>
+  <th>Nombre</th>
+  <th>Precio</th>
+
+</tr>
+<% @category.products.each do |m| %>
+  <tr>
+    <td><%=m.name%></td>
+    <td><%=m.price%></td>
+    <td><%=link_to "Eliminar", category_products_path(@category, m), method: :delete, class: "btn btn-danger" %></td>
+<% end  %>
+</table>
+
+<p><%= link_to 'Edit', edit_category_path(@category) %> |
+<%= link_to 'Back', categories_path %></p>
